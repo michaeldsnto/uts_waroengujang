@@ -1,7 +1,8 @@
-package com.example.uts_waroengujang
+package com.example.uts_waroengujang.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.uts_waroengujang.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
