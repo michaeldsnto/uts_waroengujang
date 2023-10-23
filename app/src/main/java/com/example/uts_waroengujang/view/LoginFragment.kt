@@ -12,7 +12,10 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.viewmodel.LoginViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import io.reactivex.rxjava3.core.Observer
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
@@ -27,6 +30,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.visibility = View.GONE
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         viewModel.login()
@@ -42,6 +47,8 @@ class LoginFragment : Fragment() {
                 var isUserFound = false
                 for (user in listUser) {
                     if (user.username == username && user.password == password) {
+
+                        bottomNav.visibility = View.VISIBLE
                         val action = LoginFragmentDirections.actionHomeFragment()
                         Navigation.findNavController(view).navigate(action)
                         isUserFound = true

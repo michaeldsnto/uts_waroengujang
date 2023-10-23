@@ -4,8 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Kuliah/ANMP1/uts_WaroengUjang/app/src/main/res/layout/activity_main.xml" value="0.21875" />
-        <entry key="..\:/Kuliah/ANMP1/uts_WaroengUjang/app/src/main/res/layout/fragment_login.xml" value="0.2" />
-        <entry key="..\:/Kuliah/ANMP1/uts_WaroengUjang/app/src/main/res/menu/bottom_menu.xml" value="0.2734375" />
+        <entry key="..\:/Kuliah/ANMP1/uts_WaroengUjang/app/src/main/res/layout/fragment_home.xml" value="0.21875" />
+        <entry key="..\:/Kuliah/ANMP1/uts_WaroengUjang/app/src/main/res/layout/fragment_login.xml" value="0.21875" />
+        <entry key="..\:/Kuliah/ANMP1/uts_WaroengUjang/app/src/main/res/menu/bottom_menu.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>

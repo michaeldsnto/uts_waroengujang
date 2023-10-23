@@ -12,11 +12,43 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/actionHomeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/itemHome" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/itemHome"
         android:name="com.example.uts_waroengujang.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_itemHome_to_menuFragment"
+            app:destination="@id/itemMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemMenu"
+        android:name="com.example.uts_waroengujang.view.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_cartFragment"
+            app:destination="@id/itemCart" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemCart"
+        android:name="com.example.uts_waroengujang.view.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_ordersFragment"
+            app:destination="@id/itemOrders" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemOrders"
+        android:name="com.example.uts_waroengujang.view.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/itemAccount"
+        android:name="com.example.uts_waroengujang.view.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>
