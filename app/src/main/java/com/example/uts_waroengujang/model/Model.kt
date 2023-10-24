@@ -11,3 +11,11 @@ data class Waitress(
     @SerializedName("photo_url")
     val photoUrl:String,
 )
+
+data class Menu(
+    val id:Int?,
+    @SerializedName("nama_makanan")
+    val nama:String,
+    val harga: Double,
+    val photoUrl:String
+)

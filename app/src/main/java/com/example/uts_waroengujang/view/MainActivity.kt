@@ -10,9 +10,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.viewmodel.LoginViewModel
 import com.example.uts_waroengujang.viewmodel.WaitressViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,9 +32,13 @@ class MainActivity : AppCompatActivity() {
         val waitressPhoto = intent.getStringExtra("waitressPhoto")
         waitressModel.setWaitressName(waitressName.toString())
         waitressModel.setWaitressPhoto(waitressPhoto.toString())
+
         drawerLayout = findViewById(R.id.drawerLayout)
         navController = (supportFragmentManager.findFragmentById
             (R.id.navHostFragment) as NavHostFragment).navController
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.setupWithNavController(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         val navView = findViewById<NavigationView>(R.id.navView)

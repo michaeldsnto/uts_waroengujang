@@ -5,31 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.uts_waroengujang.R
+import com.example.uts_waroengujang.viewmodel.MenuViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MenuFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MenuFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var viewModel:MenuViewModel
+    private val menuListAdapter = MenuAdapter(arrayListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,23 +26,45 @@ class MenuFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MenuViewModel::class.java)
+        viewModel.refresh()
+        val recView = view?.findViewById<RecyclerView>(R.id.recViewMenu)
+        recView?.layoutManager = LinearLayoutManager(context)
+        recView?.adapter = menuListAdapter
+
+        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.refreshLayout)
+
+        swipe.setOnRefreshListener {
+            viewModel.refresh()
+            swipe.isRefreshing = false
+        }
+
+        observeViewModel()
+    }
+    fun observeViewModel() {
+        viewModel.menuLD.observe(viewLifecycleOwner, Observer {
+            menuListAdapter.updateMenuList(it)
+        })
+        viewModel.menuLoadErrorLD.observe(viewLifecycleOwner, Observer {
+            val txtError = view?.findViewById<TextView>(R.id.txtError)
+            if(it == true) {
+                txtError?.visibility = View.VISIBLE
+            } else {
+                txtError?.visibility = View.GONE
             }
+        })
+        viewModel.loadingLD.observe(viewLifecycleOwner, Observer {
+            val progressLoad = view?.findViewById<ProgressBar>(R.id.progressLoad)
+            val recView = view?.findViewById<RecyclerView>(R.id.recViewMenu)
+            if(it == true) {
+                recView?.visibility = View.GONE
+                progressLoad?.visibility = View.VISIBLE
+            } else {
+                recView?.visibility = View.VISIBLE
+                progressLoad?.visibility = View.GONE
+            }
+        })
     }
 }
