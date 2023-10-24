@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.Navigation
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.viewmodel.WaitressViewModel
 import com.squareup.picasso.Picasso
@@ -51,6 +52,10 @@ class HomeFragment : Fragment() {
             val txtTableNumber = view.findViewById<TextView>(R.id.txtTableNumber)
             txtNumber.text = "Table $txtTableNumber"
             txtInfo.text = "Currently Serving"
+
+            val nomorMeja = txtTableNumber.text.toString()
+            val action = HomeFragmentDirections.actionMenuFragment(nomorMeja)
+            Navigation.findNavController(it).navigate(action)
         }
         val btnChange = view.findViewById<Button>(R.id.btnChange)
         btnChange.setOnClickListener {
