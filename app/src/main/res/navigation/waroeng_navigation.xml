@@ -35,6 +35,9 @@
         <action
             android:id="@+id/actionCartFragment"
             app:destination="@id/itemCart" />
+        <argument
+            android:name="nomorMeja"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/itemOrders"
