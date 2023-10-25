@@ -5,18 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.uts_waroengujang.R
+import com.example.uts_waroengujang.viewmodel.HomeViewModel
 import com.example.uts_waroengujang.viewmodel.MenuViewModel
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class MenuFragment : Fragment() {
     private lateinit var viewModel:MenuViewModel
+    private lateinit var homeViewModel: HomeViewModel
     private val menuListAdapter = MenuAdapter(arrayListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +48,21 @@ class MenuFragment : Fragment() {
         }
 
         observeViewModel()
+        val txtTable = view.findViewById<TextView>(R.id.txtTable)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        homeViewModel.getTableNumber().observe(viewLifecycleOwner, Observer{ tableNumber ->
+            if (!tableNumber.isNullOrBlank()) {
+                txtTable.text = "Table Number $tableNumber"
+            }
+
+        })
+        val btnChange = view.findViewById<Button>(R.id.btnChange)
+        btnChange.setOnClickListener {
+            val action = MenuFragmentDirections.actionChange()
+            Navigation.findNavController(it).navigate(action)
+
+        }
+
     }
     fun observeViewModel() {
         viewModel.menuLD.observe(viewLifecycleOwner, Observer {

@@ -13,9 +13,17 @@ data class Waitress(
 )
 
 data class Menu(
-    val id:Int?,
+    val id:String?,
     @SerializedName("nama_makanan")
     val nama:String,
-    val harga: Double,
+    val kategori:String,
+    val harga: Int,
+    val deskripsi: String,
     val photoUrl:String
+)
+
+data class Cart (
+    val nama:String,
+    var jumlah:Int,
+    val harga:Int,
 )

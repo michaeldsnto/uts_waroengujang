@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.model.Menu
@@ -35,6 +36,20 @@ class MenuAdapter(private val menuList: ArrayList<Menu>) : RecyclerView.Adapter<
         holder.txtHarga.text = "IDR " + menuList[position].harga
         val photoUrl = menuList[position].photoUrl
         Picasso.get().load(photoUrl).resize(300, 300).into(holder.photoMenu)
+        val menuId = menuList[position].id
+
+        holder.photoMenu.setOnClickListener {
+            val action = MenuFragmentDirections.actionMenuDetail(menuId.toString())
+            Navigation.findNavController(it).navigate(action)
+        }
+        holder.txtNamaMenu.setOnClickListener {
+            val action = MenuFragmentDirections.actionMenuDetail(menuId.toString())
+            Navigation.findNavController(it).navigate(action)
+        }
+        holder.txtHarga.setOnClickListener {
+            val action = MenuFragmentDirections.actionMenuDetail(menuId.toString())
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {
