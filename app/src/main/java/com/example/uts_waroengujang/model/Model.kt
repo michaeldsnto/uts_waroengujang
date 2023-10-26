@@ -26,4 +26,5 @@ data class Cart (
     val nama:String,
     var jumlah:Int,
     val harga:Int,
+    val photoUrl:String,
 )

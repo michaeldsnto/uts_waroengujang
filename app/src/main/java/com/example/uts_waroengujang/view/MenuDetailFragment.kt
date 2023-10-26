@@ -12,16 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.viewmodel.CartViewModel
 import com.example.uts_waroengujang.viewmodel.DetailViewModel
-import com.example.uts_waroengujang.viewmodel.MenuViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_home.*
+
 
 class MenuDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private lateinit var cartView: CartViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +41,7 @@ class MenuDetailFragment : Fragment() {
         val txtJumlah = view.findViewById<TextView>(R.id.txtJumlah)
         var jumlah = 1
         var harga = 0
+        var photoUrl = ""
 
         viewModel = ViewModelProvider(requireActivity()).get(DetailViewModel::class.java)
         viewModel.fetch(menuId)
@@ -51,6 +53,7 @@ class MenuDetailFragment : Fragment() {
                 txtHargaDetail.text = "IDR " + menu.harga.toString()
                 harga = menu.harga
                 Picasso.get().load(menu.photoUrl).resize(200,200).centerCrop().into(photoDetail)
+                photoUrl = menu.photoUrl
             }
         })
         cartView = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
@@ -72,8 +75,11 @@ class MenuDetailFragment : Fragment() {
             }
         }
         btnAdd.setOnClickListener {
-            cartView.tambahBarang(txtNamaDetail.text.toString(), jumlah, harga)
+            cartView.addMenuToCart(txtNamaDetail.text.toString(), jumlah, harga, photoUrl)
             Toast.makeText(requireContext(), "Ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
+
+            val action = MenuDetailFragmentDirections.actionMenuCart()
+            Navigation.findNavController(it).navigate(action)
         }
     }
 }
