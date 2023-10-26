@@ -21,7 +21,6 @@ class CartViewModel: ViewModel() {
         val existingItem = cartList.find { it.nama == namaMenu }
         if (existingItem != null) {
             existingItem.jumlah += jumlah
-            Log.d("cart", existingItem.photoUrl)
         } else {
             cartList.add(Cart(namaMenu, jumlah, harga, photoUrl))
         }
@@ -42,5 +41,5 @@ class CartViewModel: ViewModel() {
             }
         }
         cartLD.value = updatedCartList
-    }
+}
 }
