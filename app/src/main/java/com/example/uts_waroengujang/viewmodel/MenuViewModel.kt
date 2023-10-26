@@ -25,7 +25,7 @@ class MenuViewModel(application: Application): AndroidViewModel(application) {
         loadingLD.value = true
 
         queue = Volley.newRequestQueue(getApplication())
-        val url = "http://10.0.2.2/anmp/menu.json"
+        val url = "http://10.0.2.2:8007/menu/menu.json"
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,

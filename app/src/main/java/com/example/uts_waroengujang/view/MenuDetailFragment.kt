@@ -41,6 +41,7 @@ class MenuDetailFragment : Fragment() {
         val txtJumlah = view.findViewById<TextView>(R.id.txtJumlah)
         var jumlah = 1
         var harga = 0
+        var photoUrl = ""
 
         viewModel = ViewModelProvider(requireActivity()).get(DetailViewModel::class.java)
         viewModel.fetch(menuId)
@@ -52,6 +53,7 @@ class MenuDetailFragment : Fragment() {
                 txtHargaDetail.text = "IDR " + menu.harga.toString()
                 harga = menu.harga
                 Picasso.get().load(menu.photoUrl).resize(200,200).centerCrop().into(photoDetail)
+                photoUrl = menu.photoUrl
             }
         })
         cartView = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
@@ -73,7 +75,7 @@ class MenuDetailFragment : Fragment() {
             }
         }
         btnAdd.setOnClickListener {
-            cartView.addMenuToCart(txtNamaDetail.text.toString(), jumlah, harga)
+            cartView.addMenuToCart(txtNamaDetail.text.toString(), jumlah, harga, photoUrl)
             Toast.makeText(requireContext(), "Ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
 
             val action = MenuDetailFragmentDirections.actionMenuCart()

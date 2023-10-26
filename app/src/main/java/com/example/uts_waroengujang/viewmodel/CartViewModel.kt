@@ -1,5 +1,6 @@
 package com.example.uts_waroengujang.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,19 +10,20 @@ import com.example.uts_waroengujang.model.Menu
 class CartViewModel: ViewModel() {
     val cartLD = MutableLiveData<ArrayList<Cart>?>()
 
-    fun tambahBarang(namaMenu: String, jumlah: Int, harga: Int) {
+    fun tambahBarang(namaMenu: String, jumlah: Int, harga: Int, photoUrl: String) {
         val cartList = cartLD.value
-        cartList?.add(Cart(namaMenu, jumlah, harga))
+        cartList?.add(Cart(namaMenu, jumlah, harga, photoUrl))
         cartLD.value = cartList
     }
 
-    fun addMenuToCart(namaMenu: String, jumlah: Int, harga: Int) {
+    fun addMenuToCart(namaMenu: String, jumlah: Int, harga: Int, photoUrl:String) {
         val cartList = cartLD.value ?: ArrayList()
         val existingItem = cartList.find { it.nama == namaMenu }
         if (existingItem != null) {
             existingItem.jumlah += jumlah
+            Log.d("cart", existingItem.photoUrl)
         } else {
-            cartList.add(Cart(namaMenu, jumlah, harga))
+            cartList.add(Cart(namaMenu, jumlah, harga, photoUrl))
         }
         cartLD.value = cartList
     }

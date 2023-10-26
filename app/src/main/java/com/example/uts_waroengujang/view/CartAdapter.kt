@@ -1,5 +1,6 @@
 package com.example.uts_waroengujang.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.model.Cart
 import com.example.uts_waroengujang.viewmodel.CartViewModel
+import com.squareup.picasso.Picasso
 
 class CartAdapter(private var cartList: List<Cart>?, private val cartViewModel: CartViewModel) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
@@ -34,7 +36,9 @@ class CartAdapter(private var cartList: List<Cart>?, private val cartViewModel: 
         if (cartItem != null) {
             holder.txtNamaMenu.text = cartItem.nama
             holder.editTextQuantity.setText(cartItem.jumlah.toString())
-            holder.imgMakan
+            val photoUrl = cartItem.photoUrl
+            Log.d("photo", photoUrl)
+            Picasso.get().load(photoUrl).resize(300, 300).into(holder.imgMakan)
             holder.txtHarga.text = "IDR ${cartItem.harga * cartItem.jumlah}"
 
             holder.btnTambah.setOnClickListener {
