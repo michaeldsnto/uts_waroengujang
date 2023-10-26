@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.uts_waroengujang.R
@@ -14,6 +15,8 @@ import com.example.uts_waroengujang.viewmodel.HomeViewModel
 import com.example.uts_waroengujang.viewmodel.WaitressViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.btnChange
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 class HomeFragment : Fragment() {
     private lateinit var waitressModel : WaitressViewModel
@@ -42,20 +45,25 @@ class HomeFragment : Fragment() {
 
         val btnSubmit = view.findViewById<Button>(R.id.btnSubmit)
         btnSubmit.setOnClickListener {
-            imageView4.visibility = View.GONE
-            textInputLayout3.visibility = View.GONE
-            txtTableNumber.visibility = View.GONE
-            txtNumber.visibility = View.VISIBLE
-            btnChange.visibility = View.VISIBLE
-            btnSubmit.visibility = View.GONE
-
             val txtTableNumber = view.findViewById<TextView>(R.id.txtTableNumber)
-            txtNumber.text = "Table ${txtTableNumber.text}"
-            txtInfo.text = "Currently Serving"
+            var nomorTable = txtTableNumber.text.toString().toInt()
+            if (nomorTable != null && nomorTable > 0 && nomorTable <=12) {
+                imageView4.visibility = View.GONE
+                textInputLayout3.visibility = View.GONE
+                txtTableNumber.visibility = View.GONE
+                txtNumber.visibility = View.VISIBLE
+                btnChange.visibility = View.VISIBLE
+                btnSubmit.visibility = View.GONE
 
-            val nomorMeja = txtTableNumber.text.toString()
-            homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-            homeViewModel.setTableNumber(nomorMeja)
+
+                txtNumber.text = "Table ${txtTableNumber.text}"
+                txtInfo.text = "Currently Serving"
+
+                val nomorMeja = txtTableNumber.text.toString()
+                homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+                homeViewModel.setTableNumber(nomorMeja)
+            }
+
         }
         val btnChange = view.findViewById<Button>(R.id.btnChange)
         btnChange.setOnClickListener {
