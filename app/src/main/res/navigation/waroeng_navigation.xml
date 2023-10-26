@@ -54,7 +54,7 @@
         android:label="Menu"
         tools:layout="@layout/fragment_menu_detail" >
         <action
-            android:id="@+id/action_itemMenuDetail_to_itemCart"
+            android:id="@+id/actionMenuCart"
             app:destination="@id/itemCart" />
         <argument
             android:name="menuId"

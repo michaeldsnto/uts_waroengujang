@@ -14,26 +14,34 @@ class CartViewModel: ViewModel() {
         cartList?.add(Cart(namaMenu, jumlah, harga))
         cartLD.value = cartList
     }
-    fun getCartList(): MutableLiveData<ArrayList<Cart>?> {
-        return cartLD
+
+    fun addMenuToCart(namaMenu: String, jumlah: Int, harga: Int) {
+        val cartList = cartLD.value ?: ArrayList()
+        val existingItem = cartList.find { it.nama == namaMenu }
+
+        if (existingItem != null) {
+            existingItem.jumlah += jumlah
+        } else {
+            cartList.add(Cart(namaMenu, jumlah, harga))
+        }
+
+        cartLD.value = cartList
     }
-    fun kurangBarang(namaMenu: String) {
-        val carList = cartLD.value
-        if (carList != null) {
-            for (menu in carList) {
-                if (menu.nama == namaMenu) {
-                    if (menu.jumlah < 1) {
-                        carList.remove(menu)
-                    }
-                    else {
-                        menu.jumlah -= 1
-                        cartLD.value = carList
-                    }
+    fun updateQuantity(namaMenu: String, newQuantity: Int) {
+        val cartList = cartLD.value ?: return
+
+        val updatedCartList = ArrayList<Cart>()
+        for (menu in cartList) {
+            if (menu.nama == namaMenu) {
+                if (newQuantity > 0) {
+                    menu.jumlah = newQuantity
+                    updatedCartList.add(menu)
                 }
+            } else {
+                updatedCartList.add(menu)
             }
         }
-    }
-    fun hapusCart() {
-        cartLD.value = ArrayList()
+
+        cartLD.value = updatedCartList
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.uts_waroengujang.R
+import com.example.uts_waroengujang.viewmodel.CartViewModel
 import com.example.uts_waroengujang.viewmodel.HomeViewModel
 import com.example.uts_waroengujang.viewmodel.MenuViewModel
 import com.squareup.picasso.Picasso
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class MenuFragment : Fragment() {
     private lateinit var viewModel:MenuViewModel
     private lateinit var homeViewModel: HomeViewModel
+
     private val menuListAdapter = MenuAdapter(arrayListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

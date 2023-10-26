@@ -12,16 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.viewmodel.CartViewModel
 import com.example.uts_waroengujang.viewmodel.DetailViewModel
-import com.example.uts_waroengujang.viewmodel.MenuViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_home.*
+
 
 class MenuDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private lateinit var cartView: CartViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,8 +73,11 @@ class MenuDetailFragment : Fragment() {
             }
         }
         btnAdd.setOnClickListener {
-            cartView.tambahBarang(txtNamaDetail.text.toString(), jumlah, harga)
+            cartView.addMenuToCart(txtNamaDetail.text.toString(), jumlah, harga)
             Toast.makeText(requireContext(), "Ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
+
+            val action = MenuDetailFragmentDirections.actionMenuCart()
+            Navigation.findNavController(it).navigate(action)
         }
     }
 }
