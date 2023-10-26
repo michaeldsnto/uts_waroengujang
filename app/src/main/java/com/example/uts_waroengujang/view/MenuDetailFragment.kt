@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.uts_waroengujang.R
+import com.example.uts_waroengujang.viewmodel.CartViewModel
 import com.example.uts_waroengujang.viewmodel.DetailViewModel
 import com.example.uts_waroengujang.viewmodel.MenuViewModel
 import com.squareup.picasso.Picasso
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class MenuDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
+    private lateinit var cartView: CartViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +39,7 @@ class MenuDetailFragment : Fragment() {
         val photoDetail = view.findViewById<ImageView>(R.id.photoDetail)
         val txtJumlah = view.findViewById<TextView>(R.id.txtJumlah)
         var jumlah = 1
+        var harga = 0
 
         viewModel = ViewModelProvider(requireActivity()).get(DetailViewModel::class.java)
         viewModel.fetch(menuId)
@@ -46,9 +49,11 @@ class MenuDetailFragment : Fragment() {
                 txtNamaDetail.text = menu.nama
                 txtDeskripsi.text = menu.deskripsi
                 txtHargaDetail.text = "IDR " + menu.harga.toString()
+                harga = menu.harga
                 Picasso.get().load(menu.photoUrl).resize(200,200).centerCrop().into(photoDetail)
             }
         })
+        cartView = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
 
         val btnTambah = view.findViewById<Button>(R.id.btnTambah)
         val btnKurang = view.findViewById<Button>(R.id.btnKurang)
@@ -67,7 +72,8 @@ class MenuDetailFragment : Fragment() {
             }
         }
         btnAdd.setOnClickListener {
-
+            cartView.tambahBarang(txtNamaDetail.text.toString(), jumlah, harga)
+            Toast.makeText(requireContext(), "Ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
         }
     }
 }
