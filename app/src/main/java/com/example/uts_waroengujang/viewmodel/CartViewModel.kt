@@ -18,30 +18,27 @@ class CartViewModel: ViewModel() {
     fun addMenuToCart(namaMenu: String, jumlah: Int, harga: Int) {
         val cartList = cartLD.value ?: ArrayList()
         val existingItem = cartList.find { it.nama == namaMenu }
-
         if (existingItem != null) {
             existingItem.jumlah += jumlah
         } else {
             cartList.add(Cart(namaMenu, jumlah, harga))
         }
-
         cartLD.value = cartList
     }
-    fun updateQuantity(namaMenu: String, newQuantity: Int) {
+    fun updateQuantity(namaMenu: String, newQuantity: Int, harga:Int) {
         val cartList = cartLD.value ?: return
-
         val updatedCartList = ArrayList<Cart>()
         for (menu in cartList) {
             if (menu.nama == namaMenu) {
                 if (newQuantity > 0) {
                     menu.jumlah = newQuantity
+                    menu.harga*newQuantity
                     updatedCartList.add(menu)
                 }
             } else {
                 updatedCartList.add(menu)
             }
         }
-
         cartLD.value = updatedCartList
     }
 }
