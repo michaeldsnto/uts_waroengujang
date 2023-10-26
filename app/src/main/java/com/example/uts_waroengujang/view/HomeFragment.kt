@@ -63,6 +63,9 @@ class HomeFragment : Fragment() {
                 homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
                 homeViewModel.setTableNumber(nomorMeja)
             }
+            else {
+                Toast.makeText(requireContext(), "Nomor Meja 1-12", Toast.LENGTH_SHORT).show()
+            }
 
         }
         val btnChange = view.findViewById<Button>(R.id.btnChange)
