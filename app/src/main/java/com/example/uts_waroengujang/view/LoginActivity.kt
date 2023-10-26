@@ -3,13 +3,13 @@ package com.example.uts_waroengujang.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.example.uts_waroengujang.R
 import com.example.uts_waroengujang.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel:LoginViewModel
@@ -33,6 +33,8 @@ class LoginActivity : AppCompatActivity() {
                     if (user.username == username && user.password == password) {
                         isUserFound = true
                         val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra("waitressName", user.name)
+                        intent.putExtra("waitressPhoto", user.photoUrl)
                         startActivity(intent)
                         finish()
                     }

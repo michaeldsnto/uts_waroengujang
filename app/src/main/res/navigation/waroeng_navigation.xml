@@ -32,13 +32,32 @@
         android:name="com.example.uts_waroengujang.view.MenuFragment"
         android:label="Menu"
         tools:layout="@layout/fragment_menu">
+        <argument
+            android:name="nomorMeja"
+            app:argType="string" />
         <action
-            android:id="@+id/actionCartFragment"
-            app:destination="@id/itemCart" />
+            android:id="@+id/actionChange"
+            app:destination="@id/itemHome" />
+        <action
+            android:id="@+id/actionMenuDetail"
+            app:destination="@id/itemMenuDetail"
+            app:popUpTo="@id/itemMenuDetail" />
     </fragment>
     <fragment
         android:id="@+id/itemOrders"
         android:name="com.example.uts_waroengujang.view.OrdersFragment"
         android:label="Orders"
         tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/itemMenuDetail"
+        android:name="com.example.uts_waroengujang.view.MenuDetailFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu_detail" >
+        <action
+            android:id="@+id/action_itemMenuDetail_to_itemCart"
+            app:destination="@id/itemCart" />
+        <argument
+            android:name="menuId"
+            app:argType="string" />
+    </fragment>
 </navigation>
