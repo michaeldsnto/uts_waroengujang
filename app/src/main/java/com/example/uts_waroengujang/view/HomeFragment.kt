@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         waitressModel = ViewModelProvider(requireActivity()).get(WaitressViewModel::class.java)
 
         waitressModel.getWaitressName().observe(viewLifecycleOwner, Observer{ waitressName ->
-            txtName.text = waitressName
+            txtView1.text = waitressName
         })
         waitressModel.getWaitressPhoto().observe(viewLifecycleOwner, Observer{ waitressPhoto ->
             if (!waitressPhoto.isNullOrBlank()) {
