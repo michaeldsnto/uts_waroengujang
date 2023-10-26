@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,12 +29,27 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val subtotalTextView: TextView = view.findViewById(R.id.textViewSubtotal)
+        val taxTextView: TextView = view.findViewById(R.id.textViewTax)
+        val totalTextView: TextView = view.findViewById(R.id.textViewTotal)
         viewModel = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewCart)
         cartAdapter = CartAdapter(arrayListOf(), viewModel)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = cartAdapter
+
+        viewModel.subtotalLD.observe(viewLifecycleOwner, Observer { subtotal ->
+            subtotalTextView.text = "Rp. $subtotal"
+        })
+
+        viewModel.taxLD.observe(viewLifecycleOwner, Observer { tax ->
+            taxTextView.text = "Rp. $tax"
+        })
+
+        viewModel.totalLD.observe(viewLifecycleOwner, Observer { total ->
+            totalTextView.text = "Rp. $total"
+        })
 
         viewModel.cartLD.observe(viewLifecycleOwner, Observer {
             Log.d("CartFragment", "Cart Updated: $it")
