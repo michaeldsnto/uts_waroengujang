@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
                         isUserFound = true
                         val intent = Intent(this, MainActivity::class.java)
                         intent.putExtra("waitressName", user.name)
+                        intent.putExtra("waitressWork", user.workSince)
                         intent.putExtra("waitressPhoto", user.photoUrl)
                         startActivity(intent)
                         finish()

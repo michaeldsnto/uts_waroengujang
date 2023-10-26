@@ -29,8 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         waitressModel = ViewModelProvider(this).get(WaitressViewModel::class.java)
         val waitressName = intent.getStringExtra("waitressName")
+        val waitressWork = intent.getStringExtra("waitressWork")
         val waitressPhoto = intent.getStringExtra("waitressPhoto")
         waitressModel.setWaitressName(waitressName.toString())
+        waitressModel.setWaitressWork(waitressWork.toString())
         waitressModel.setWaitressPhoto(waitressPhoto.toString())
 
         drawerLayout = findViewById(R.id.drawerLayout)
