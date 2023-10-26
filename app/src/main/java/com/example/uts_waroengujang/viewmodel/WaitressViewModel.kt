@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class WaitressViewModel : ViewModel() {
     private val waitressName = MutableLiveData<String>()
+    private val waitressPassword = MutableLiveData<String>()
     private val waitressWork = MutableLiveData<String>()
     private val waitressPhoto = MutableLiveData<String>()
 
@@ -32,5 +33,13 @@ class WaitressViewModel : ViewModel() {
 
     fun setWaitressWork(workSince: String) {
         waitressWork.value = workSince
+    }
+
+    fun getWaitressPassword(): LiveData<String> {
+        return waitressPassword
+    }
+
+    fun setWaitressPassword(password: String) {
+        waitressPassword.value = password
     }
 }

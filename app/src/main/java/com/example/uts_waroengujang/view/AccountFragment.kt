@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.uts_waroengujang.R
@@ -29,6 +30,13 @@ class AccountFragment : Fragment() {
 
         waitressModel.getWaitressName().observe(viewLifecycleOwner, Observer{ waitressName ->
             textViewName.text = waitressName
+        })
+        waitressModel.getWaitressWork().observe(viewLifecycleOwner, Observer{ waitressWork ->
+            textViewWork.text = waitressWork
+        })
+        val id = view?.findViewById<TextView>(R.id.txtCurr)
+        waitressModel.getWaitressPassword().observe(viewLifecycleOwner, Observer{ waitressPassword ->
+            id?.setText(waitressPassword)
         })
         waitressModel.getWaitressWork().observe(viewLifecycleOwner, Observer{ waitressWork ->
             textViewWork.text = waitressWork

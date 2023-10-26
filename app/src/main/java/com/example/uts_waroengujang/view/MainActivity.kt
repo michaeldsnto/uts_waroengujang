@@ -29,9 +29,11 @@ class MainActivity : AppCompatActivity() {
 
         waitressModel = ViewModelProvider(this).get(WaitressViewModel::class.java)
         val waitressName = intent.getStringExtra("waitressName")
+        val waitressPassword = intent.getStringExtra("waitressPassword")
         val waitressWork = intent.getStringExtra("waitressWork")
         val waitressPhoto = intent.getStringExtra("waitressPhoto")
         waitressModel.setWaitressName(waitressName.toString())
+        waitressModel.setWaitressPassword(waitressPassword.toString())
         waitressModel.setWaitressWork(waitressWork.toString())
         waitressModel.setWaitressPhoto(waitressPhoto.toString())
 
