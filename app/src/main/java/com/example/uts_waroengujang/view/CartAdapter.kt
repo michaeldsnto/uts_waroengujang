@@ -18,8 +18,8 @@ class CartAdapter(private var cartList: List<Cart>?, private val cartViewModel: 
 
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val txtNamaMenu: TextView = view.findViewById(R.id.txtNamaMenu)
-        val editTextQuantity: EditText = view.findViewById(R.id.editTextQuantity)
-        val imgMakan: ImageView = view.findViewById(R.id.imageViewMakan)
+        val editTextQuantity: EditText = view.findViewById(R.id.txtQuantity)
+        val imgMakan: ImageView = view.findViewById(R.id.photoMenuCart)
         val btnTambah: Button = view.findViewById(R.id.btnTambah)
         val btnKurang: Button = view.findViewById(R.id.btnKurang)
         val txtHarga: TextView = view.findViewById(R.id.txtHarga)
@@ -47,7 +47,11 @@ class CartAdapter(private var cartList: List<Cart>?, private val cartViewModel: 
             }
 
             holder.btnKurang.setOnClickListener {
-                val newQuantity = maxOf(0, cartItem.jumlah - 1)
+                val newQuantity = if (cartItem.jumlah - 1 >= 0) {
+                    cartItem.jumlah - 1
+                } else {
+                    0
+                }
                 cartViewModel.updateQuantity(cartItem.nama, newQuantity, cartItem.harga)
                 holder.txtHarga.text = "IDR ${cartItem.harga * cartItem.jumlah}"
             }
@@ -55,8 +59,14 @@ class CartAdapter(private var cartList: List<Cart>?, private val cartViewModel: 
     }
 
     override fun getItemCount(): Int {
-        return cartList?.size ?: 0
+        val list = cartList
+        return if (list != null) {
+            list.size
+        } else {
+            0
+        }
     }
+
 
     fun updateCartList(newCartList: List<Cart>?) {
         cartList = newCartList

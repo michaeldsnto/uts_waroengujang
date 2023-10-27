@@ -20,20 +20,23 @@ class CartViewModel: ViewModel() {
         totalLD.value = 0
     }
 
-    fun tambahBarang(namaMenu: String, jumlah: Int, harga: Int, photoUrl: String) {
-        val cartList = cartLD.value
-        cartList?.add(Cart(namaMenu, jumlah, harga, photoUrl))
-        cartLD.value = cartList
-    }
-
-    fun addMenuToCart(namaMenu: String, jumlah: Int, harga: Int, photoUrl:String) {
+    fun addMenuToCart(namaMenu: String, jumlah: Int, harga: Int, photoUrl: String) {
         val cartList = cartLD.value ?: ArrayList()
-        val existingItem = cartList.find { it.nama == namaMenu }
-        if (existingItem != null) {
-            existingItem.jumlah += jumlah
+        var cartItem: Cart? = null
+
+        for (item in cartList) {
+            if (item.nama == namaMenu) {
+                cartItem = item
+                break
+            }
+        }
+
+        if (cartItem != null) {
+            cartItem.jumlah += jumlah
         } else {
             cartList.add(Cart(namaMenu, jumlah, harga, photoUrl))
         }
+
         cartLD.value = cartList
         recalculateTotals()
     }
@@ -55,14 +58,20 @@ class CartViewModel: ViewModel() {
         recalculateTotals()
     }
     private fun recalculateTotals() {
-        val cartList = cartLD.value ?: return
+        val cartList = cartLD.value
 
-        val subtotal = cartList.sumBy { it.harga * it.jumlah }
-        subtotalLD.value = subtotal
+        if (cartList != null) {
+            var subtotal = 0
+            for (item in cartList) {
+                subtotal += item.harga * item.jumlah
+            }
+            subtotalLD.value = subtotal
 
-        val tax = (subtotal * 0.1).toInt()
-        taxLD.value = tax
+            val tax = (subtotal * 0.1).toInt()
+            taxLD.value = tax
 
-        val total = subtotal + tax
-        totalLD.value=total}
+            val total = subtotal + tax
+            totalLD.value = total
+        }
+    }
 }

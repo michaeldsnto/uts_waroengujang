@@ -29,12 +29,12 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val subtotalTextView: TextView = view.findViewById(R.id.textViewSubtotal)
-        val taxTextView: TextView = view.findViewById(R.id.textViewTax)
-        val totalTextView: TextView = view.findViewById(R.id.textViewTotal)
+        val subtotalTextView: TextView = view.findViewById(R.id.txtSubtotal)
+        val taxTextView: TextView = view.findViewById(R.id.txtTax)
+        val totalTextView: TextView = view.findViewById(R.id.txtTotal)
         viewModel = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewCart)
+        val recyclerView: RecyclerView = view.findViewById(R.id.recViewCart)
         cartAdapter = CartAdapter(arrayListOf(), viewModel)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = cartAdapter
@@ -58,7 +58,7 @@ class CartFragment : Fragment() {
             }
         })
 
-        val checkoutButton: Button = view.findViewById(R.id.checkoutButton)
+        val checkoutButton: Button = view.findViewById(R.id.btnCheckout)
         checkoutButton.setOnClickListener {
 
         }
